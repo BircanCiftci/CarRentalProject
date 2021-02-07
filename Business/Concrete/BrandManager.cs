@@ -21,7 +21,7 @@ namespace Business.Concrete
 
         public void Delete(Brand brand)
         {
-            throw new NotImplementedException();
+            _brandDal.Delete(brand);
         }
 
         public List<Brand> GetAll()
