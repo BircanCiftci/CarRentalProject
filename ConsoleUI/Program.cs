@@ -12,6 +12,7 @@ namespace ConsoleUI
             CarManager carManager = new CarManager(new EfCarDal());
             RentalManager rentalManager = new RentalManager(new EfRentalDal());
             UserManager userManager = new UserManager(new EfUserDal());
+            CustomerManager customerManager = new CustomerManager(new EfCustomerDal());
 
             var result = carManager.GetCarDetails();
             var result2 = rentalManager.GetRentalDetails();
@@ -48,6 +49,13 @@ namespace ConsoleUI
             foreach (var user in userManager.GetAll().Data)
             {
                 Console.WriteLine(user.FirstName + " / " + user.LastName + " / " + user.Email + " / " + user.Password);
+            }
+
+            Console.WriteLine("***********************************************************************************************");
+
+            foreach (var customer in customerManager.GetAll().Data)
+            {
+                Console.WriteLine(customer.UserId +" / " + customer.CompanyName);
             }
         }
     }
