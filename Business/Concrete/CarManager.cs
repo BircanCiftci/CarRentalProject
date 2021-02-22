@@ -1,9 +1,12 @@
 ﻿using Business.Abstract;
 using Business.Constants;
+using Business.ValidationRules.FluentValidation;
+using Core.CrossCuttingConcerns.Validation;
 using Core.Utilities.Result;
 using DataAccess.Abstract;
 using Entities.Concrete;
 using Entities.DTOs;
+using FluentValidation;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -20,10 +23,11 @@ namespace Business.Concrete
 
         public IResult Add(Car car)
         {
-            if (car.Description.Length<2)
-            {
-                return new ErrorResult(Messages.CarDescriptionInvalid);
-            }
+            //business code 
+            //validation
+
+            
+            ValidationTool.Validate(new CarValidator(), car);
 
             _carDal.Add(car);
 

@@ -8,13 +8,9 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace DataAccess.Concrete.Entity_Framework
+namespace DataAccess.Concrete.EntityFramework
 {
-    public class EfUserDal : EfEntityRepositoryBase<User, CarDataBaseContext>, IUserDal
+    public class EfCustomerDal : EfEntityRepositoryBase<Customer, CarDataBaseContext>, ICustomerDal
     {
-        public List<RentalDetailDto> GetRentalDetails()
-        {
-            throw new NotImplementedException();
-        }
     }
 }
