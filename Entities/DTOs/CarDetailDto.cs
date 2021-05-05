@@ -13,5 +13,6 @@ namespace Entities.DTOs
         public double DailyPrice { get; set; }
         public string Description { get; set; }
         public int ModelYear { get; set; }
+        public List<string> CarImages { get; set; }
     }
 }

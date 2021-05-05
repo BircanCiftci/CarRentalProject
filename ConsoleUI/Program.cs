@@ -1,6 +1,5 @@
 ﻿using Business.Concrete;
 using DataAccess.Concrete.EntityFramework;
-using DataAccess.Concrete.EntityFramework;
 using System;
 
 namespace ConsoleUI
@@ -9,33 +8,48 @@ namespace ConsoleUI
     {
         static void Main(string[] args)
         {
+            CarTest();
+            RentalTest();
+            UserTest();
+            CustomerTest();
+            CarImageManager carImageManager = new CarImageManager(new EfCarImageDal());
+
+            foreach (var carImage in carImageManager.GetAll().Data)
+            {
+                Console.WriteLine(carImage.CarId + " / " + carImage.CarImageId + " / " + carImage.ImagePath + " / " + carImage.Date);
+            }
+        }
+
+        private static void CarTest()
+        {
             CarManager carManager = new CarManager(new EfCarDal());
-            RentalManager rentalManager = new RentalManager(new EfRentalDal());
-            UserManager userManager = new UserManager(new EfUserDal());
-            CustomerManager customerManager = new CustomerManager(new EfCustomerDal());
 
             var result = carManager.GetCarDetails();
-            var result2 = rentalManager.GetRentalDetails();
 
             if (result.Success == true)
             {
                 foreach (var car in result.Data)
                 {
-                    Console.WriteLine(car.BrandName + " / " + car.ColorName + " / " + car.Description + " / " + car.ModelYear + " / " + car.DailyPrice);
+                    Console.WriteLine(car.BrandName + " / " + car.ColorName + " / " + car.Description + " / " + car.ModelYear + " / " + car.DailyPrice + " / " + car.CarImages);
                 }
             }
             else
             {
                 Console.WriteLine(result.Message);
             }
+        }
 
-            Console.WriteLine("***********************************************************************************************");
+        private static void RentalTest()
+        {
+            RentalManager rentalManager = new RentalManager(new EfRentalDal());
+
+            var result2 = rentalManager.GetRentalDetails();
 
             if (result2.Success == true)
             {
                 foreach (var rental in result2.Data)
                 {
-                    Console.WriteLine(rental.FirstName + " / " + rental.LastName + " / " + rental.BrandName + " / " + rental.CompanyName + " / " + rental.RentDate 
+                    Console.WriteLine(rental.FirstName + " / " + rental.LastName + " / " + rental.BrandName + " / " + rental.CompanyName + " / " + rental.RentDate
                         + " / " + rental.ReturnDate + " / " + rental.Email + " / " + rental.Password);
                 }
             }
@@ -43,19 +57,25 @@ namespace ConsoleUI
             {
                 Console.WriteLine(result2.Message);
             }
+        }
 
-            Console.WriteLine("***********************************************************************************************");
+        private static void UserTest()
+        {
+            UserManager userManager = new UserManager(new EfUserDal());
 
             foreach (var user in userManager.GetAll().Data)
             {
                 Console.WriteLine(user.FirstName + " / " + user.LastName + " / " + user.Email + " / " + user.Password);
             }
+        }
 
-            Console.WriteLine("***********************************************************************************************");
+        private static void CustomerTest()
+        {
+            CustomerManager customerManager = new CustomerManager(new EfCustomerDal());
 
             foreach (var customer in customerManager.GetAll().Data)
             {
-                Console.WriteLine(customer.UserId +" / " + customer.CompanyName);
+                Console.WriteLine(customer.UserId + " / " + customer.CompanyName);
             }
         }
     }
